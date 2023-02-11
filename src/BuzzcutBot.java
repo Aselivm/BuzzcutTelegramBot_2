@@ -31,13 +31,13 @@ public class BuzzcutBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if(update.hasMessage()&& update.getMessage().getText().equals("Roshan died")){
-            Thread thread = new Thread(new TimerClass(update.getMessage().getChatId(),11,0));
-            thread.start();
+            Stopwatch stopwatch = new Stopwatch(update,11,0);
+            stopwatch.start();
         }
         if(update.hasMessage()&& update.getMessage().getText().equals("Show time")){
-            TimerClass timerClass = new TimerClass();
+            Stopwatch stopwatch = new Stopwatch();
             try {
-                timerClass.sendTime(update);
+                stopwatch.sendTime(update);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
