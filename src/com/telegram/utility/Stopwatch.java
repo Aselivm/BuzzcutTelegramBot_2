@@ -1,34 +1,40 @@
+package com.telegram.utility;
 
-import org.telegram.telegrambots.meta.api.objects.Update;
+import com.telegram.BuzzcutBot;
 
-import java.io.*;
 import java.util.*;
 
-public class Stopwatch extends BuzzcutBot{
-    private long currentTime;
+public class Stopwatch extends BuzzcutBot {
 
+    private final Timer timer = new Timer();
+    private final long chat_id;
+    private long currentTime;
     private String minutes;
 
     private String seconds;
 
-    Stopwatch(int minutes, int seconds){
+    public Stopwatch(long chat_id, int minutes, int seconds){
+        this.chat_id = chat_id;
         this.currentTime = (minutes* 60L)+seconds;
+        start();
     }
 
-    public void sendTime(Update update) throws IOException {
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public String getTime(){
         minutes = String.valueOf(currentTime/60);
         seconds = String.valueOf(currentTime%60<10? "0"+currentTime%60:currentTime%60);
-        String text = aegisTimer() + "\n" + roshanTimer();
-        sendText(update.getMessage().getChatId(),text);
+        return aegisTimer() + "\n" + roshanTimer();
     }
 
     public void start() {
-        Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 System.out.println("count");
-                if (--currentTime == 0) {
+                if (--currentTime <= 0) {
                     timer.cancel();
                 }
             }
