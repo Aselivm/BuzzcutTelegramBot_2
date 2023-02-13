@@ -6,7 +6,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class BuzzcutBot extends TelegramLongPollingBot {
 
-   private static Controller controller = null;
+    private static Controller controller = null;
 
     public static Controller getController() {
         return controller;

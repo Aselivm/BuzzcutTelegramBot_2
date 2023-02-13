@@ -8,7 +8,7 @@ public class Stopwatch extends BuzzcutBot {
 
     private final Timer timer = new Timer();
     private final long chat_id;
-    private long currentTime;
+    private volatile long currentTime;
     private String minutes;
 
     private String seconds;
@@ -20,7 +20,7 @@ public class Stopwatch extends BuzzcutBot {
     }
 
     public Timer getTimer() {
-        return timer;
+        return this.timer;
     }
 
     public String getTime(){
@@ -34,7 +34,7 @@ public class Stopwatch extends BuzzcutBot {
             @Override
             public void run() {
                 System.out.println("count");
-                if (--currentTime <= 0) {
+                if (currentTime-- <= 0) {
                     timer.cancel();
                 }
             }
