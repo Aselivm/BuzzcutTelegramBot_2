@@ -36,6 +36,14 @@ public class RoshanStopwatch extends EventTimer{
         return "Aegis down in: "+ min+":"+ stringSeconds(currentTime);
     }
 
+    private String roshanTimer(){
+        if(currentTime<=180) return "Roshan respawns: "
+                + Math.max(integerMinutes(currentTime)-3,0)
+                +":00"+" - "+ integerMinutes(currentTime) + ":" + stringSeconds(currentTime);
+        return "Roshan respawns: "
+                + Math.max(integerMinutes(currentTime)-3,0)
+                +":"+stringSeconds(currentTime)+" - "+ integerMinutes(currentTime) + ":" + stringSeconds(currentTime);
 
+    }
 
 }
