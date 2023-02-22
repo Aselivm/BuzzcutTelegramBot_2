@@ -6,14 +6,28 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 public class BuzzcutBot extends TelegramLongPollingBot {
 
+    public Long chatId(Update update){
+        long chatId = -1;
+        try {
+            if (update.hasMessage()) {
+                chatId =  update.getMessage().getChatId();
+            } else if (update.hasCallbackQuery()) {
+                chatId =  update.getCallbackQuery().getMessage().getChatId();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return chatId;
+    }
+
     private static Controller controller = null;
 
     public static Controller getController() {
         return controller;
     }
 
-    public void setController(Controller controller) {
-        BuzzcutBot.controller = controller;
+    public void makeController() {
+        BuzzcutBot.controller = new Controller();
     }
 
     @Override
@@ -28,9 +42,9 @@ public class BuzzcutBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        if(controller==null) setController(new Controller());
+        if(controller==null) makeController();
         getController().getStart(update);
-        getController().getRoshanController(update);
+        getController().RoshanScan(update);
     }
 
 }

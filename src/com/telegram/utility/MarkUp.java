@@ -15,39 +15,34 @@ public class MarkUp extends BuzzcutBot {
     private List<KeyboardRow> keyboard;
     private KeyboardRow row;
 
-    public RoshanMarkUp getRoshanMarkUp(long chat_id){
-        return new RoshanMarkUp(chat_id);
+    public RoshanMarkUp getRoshanMarkUp(long chatId){
+        return new RoshanMarkUp(chatId);
     }
 
-    public MasterMarkUp getMasterMarkUp(long chat_id){
-        return new MasterMarkUp(chat_id);
-    }
-    public class MasterMarkUp {
-        MasterMarkUp(long chat_id){
-            message.setChatId(chat_id);
-            message.setText("Choose option");
-            keyboardMarkup = new ReplyKeyboardMarkup();
-            keyboard = new ArrayList<>();
-            row = new KeyboardRow();
-            row.add("Roshan");
-            keyboard.add(row);
-            keyboardMarkup.setKeyboard(keyboard);
-            message.setReplyMarkup(keyboardMarkup);
-            try {
-                execute(message);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
+    public void getMasterMarkUp(long chat_id){
+        message.setChatId(chat_id);
+        message.setText("Choose option");
+        keyboardMarkup = new ReplyKeyboardMarkup();
+        keyboard = new ArrayList<>();
+        row = new KeyboardRow();
+        row.add("Roshan");
+        keyboard.add(row);
+        keyboardMarkup.setKeyboard(keyboard);
+        message.setReplyMarkup(keyboardMarkup);
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
         }
     }
 
     public class RoshanMarkUp {
-        private final long chat_id;
-        RoshanMarkUp(long chat_id){
-            this.chat_id = chat_id;
+        private final long chatId;
+        RoshanMarkUp(long chatId){
+            this.chatId = chatId;
         }
         public void roshanStart(){
-            message.setChatId(chat_id);
+            message.setChatId(chatId);
             message.setText("Roshan keyboard");
             keyboardMarkup = new ReplyKeyboardMarkup();
             keyboard = new ArrayList<>();
@@ -64,7 +59,7 @@ public class MarkUp extends BuzzcutBot {
         }
 
         public void roshanTime(){
-            message.setChatId(chat_id);
+            message.setChatId(chatId);
             message.setText("Roshan timer started");
             keyboardMarkup = new ReplyKeyboardMarkup();
             keyboard = new ArrayList<>();
