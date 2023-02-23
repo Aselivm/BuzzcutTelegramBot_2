@@ -5,12 +5,17 @@ import java.util.*;
 public class RoshanStopwatch extends EventTimer{
     private volatile int currentTime;
 
+    private int minutes;
+    private int seconds;
+
     public RoshanStopwatch(){
         this.currentTime = 11*60;
         start();
     }
 
     public String getTime(){
+        this.minutes = currentTime/60;
+        this.seconds = currentTime%60;
         return aegisTimer() + "\n" + roshanTimer();
     }
 
@@ -31,18 +36,18 @@ public class RoshanStopwatch extends EventTimer{
     }
 
     private String aegisTimer(){
-        int min = integerMinutes(currentTime) - 6;
-        if(currentTime<=300) return "Aegis down in: "+ min+":00";
-        return "Aegis down in: "+ min+":"+ stringSeconds(currentTime);
+        int minutes = this.minutes - 6;
+        if(currentTime<=300) return "Aegis down in: "+ minutes +":00";
+        return "Aegis down in: "+ minutes +":"+ String.format("%02d", seconds);
     }
 
     private String roshanTimer(){
         if(currentTime<=180) return "Roshan respawns: "
-                + Math.max(integerMinutes(currentTime)-3,0)
-                +":00"+" - "+ integerMinutes(currentTime) + ":" + stringSeconds(currentTime);
+                + Math.max(minutes-3,0)
+                +":00"+" - "+ minutes + ":" + String.format("%02d", seconds);
         return "Roshan respawns: "
-                + Math.max(integerMinutes(currentTime)-3,0)
-                +":"+stringSeconds(currentTime)+" - "+ integerMinutes(currentTime) + ":" + stringSeconds(currentTime);
+                + Math.max(minutes-3,0)
+                +":"+ String.format("%02d", seconds) +" - "+ minutes + ":" + String.format("%02d", seconds);
 
     }
 
